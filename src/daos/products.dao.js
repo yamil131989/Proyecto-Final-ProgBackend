@@ -4,11 +4,62 @@ const {productModel} = require('../models/products.model.js')
 
  const getProducts = async (req = request,res=response) =>{
     try {
-        let { limit , page = 1} = req.query
+        let { limit , page = 1, query ,sort} = req.query
         page= page==0 ? 1 :page
+        page = Number(page)
 
-        const products = await productModel.find().limit(Number(limit))       
-        return res.json({products})
+        const docs = (page - 1) * Number(limit)
+
+        const OrdenSort = {'asc':-1,'desc':1}
+        sort = OrdenSort[sort] || null
+
+        if(query){
+            query = JSON.parse(decodeURIComponent(query))
+        } else { 
+            query = {}
+        }
+        
+
+        const total = await productModel.countDocuments()
+        let products = await productModel.find(query).limit(Number(limit)).skip(docs)            
+        
+
+        if(sort !== null){
+           products = await productModel.find(query).limit(Number(limit)).skip(docs).sort({price:sort})
+        } 
+        
+        
+        //paginado
+        const totalPages = Math.ceil(total/Number(limit))        
+        
+        const hasPrevPage = page > 1
+        const hasNextPage = page < totalPages
+        const prevPage = hasPrevPage ? page -1 : null
+        const nextPage = hasNextPage ? page +1 :null
+
+        //const prevLink = hasPrevPage ? `/products?limit=${Number(limit)}&page=${prevPage}&query=${query}&sort=${sort}` : null
+        const prevLink = hasPrevPage ? `/products?limit=${Number(limit)}&page=${prevPage}` : null
+//        const nextLink = hasNextPage ? `/products?limit=${Number(limit)}&page=${nextPage}&query=${query}&sort=${sort}` : null;
+        const nextLink = hasNextPage ? `/products?limit=${Number(limit)}&page=${nextPage}` : null;
+
+
+        const objeto = {
+            status: true,
+            payload: products,
+            totalPages:0,
+            prevPage,
+            nextPage,
+            page:page,
+            hasPrevPage,
+            hasNextPage,
+            prevLink,
+            nextLink
+        }
+
+
+        //return res.json({products,objeto})
+        return res.json({products,objeto})
+
 
 
     } catch (error) {    
