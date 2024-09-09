@@ -13,8 +13,10 @@ socket.on('productos', productos =>{
         <td>${producto.description}</td>
         <td>${producto.code}</td>
         <td>${producto.price}</td>
-        <td>${producto.status ? 'Stock en sucursal':'Pedir Reposicion'}</td>
+        <td>${producto.status}</td>
         <td>${producto.stock}</td>
+        <td>${producto.category}</td>
+        <td>${producto.status ? 'Stock en sucursal':'Pedir Reposicion'}</td>
         <td>${producto.thumbnails}</td>        
         `
     });
