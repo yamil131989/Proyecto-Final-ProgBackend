@@ -1,18 +1,18 @@
 const { Router } = require('express')
 const { error } = require('console')
 const { getProducts,getProduct,addProduct,updateProduct,deleteProduct } = require('../daos/products.dao.js')
-//const { ProductsDao } = require('../daos/products.dao')
+
 
 const router = Router()
 
-router.get('/', getProducts) //bien
+router.get('/', getProducts) 
 
-router.get('/:id', getProduct) //mal
+router.get('/:id', getProduct) 
 
-router.post('/', addProduct) //bien
+router.post('/', addProduct) 
 
-router.put('/:id',updateProduct) //mal
+router.put('/:id',updateProduct) 
 
-router.delete('/:id',deleteProduct) //mal
+router.delete('/:id',deleteProduct) 
 
 module.exports = router
