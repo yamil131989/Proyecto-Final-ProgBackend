@@ -3,14 +3,7 @@ const {cartModel} = require('../models/carts.model.js')
 const {productModel} = require('../models/carts.model.js')
 
 
-// export const getCarts  = async(req= request,res= response)=>{
-//     try {
-              
-//     } catch (error) {    
-//         console.log(error)
-//         return res.status(500).json({msg:'Server Error , obteniendo los carritos '})
-//     }
-// }
+
 
 
 
