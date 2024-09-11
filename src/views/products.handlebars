@@ -1,0 +1,161 @@
+
+<head>
+  {{!-- <link rel="stylesheet" href="styles.css"> --}}
+  <style>table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,td { 
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th{
+    background-color: #c4b7b7;
+}
+
+ul { 
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+form {
+    max-width: 400px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+
+}
+label { 
+    display: block;
+    margin-bottom:0px;
+    margin-top: 5px;
+}
+input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+button { 
+    margin-top: 4px;
+    background-color: #77d37a;
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+    display: flex;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}</style>
+</head>
+</head>
+<div>
+    <h1>Final Products</h1>
+
+    <h3>Lista de productos:</h3>
+    <table>
+        <thead>
+            
+            <th>Title</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Info</th>
+          
+         
+
+
+        </thead>
+        <tbody>
+           
+            {{#each producResult.payload}}
+            <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.code}}</td>
+            <td>{{this.stock}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.category}}</td>
+            <td>{{this.status}}</td>
+            {{!-- <td>{{this.thumbnails}}</td> --}}
+    
+
+
+                <td>
+                    {{#if this.status}}
+                    Con stock
+                    {{else}}
+                    Reposicion
+                    {{/if}}
+                </td>
+                <td>
+                    <button class="btn btn-round btn-lg btn-ghost-orange" onclick="agregalCarrito('{{this._id}}')"> Carrito 🛒 
+                    <i class="cart-icon"></i>
+                </button> 
+                </td>
+                
+            </tr>
+            
+            {{/each}}
+   
+        </tbody>
+         <span>limit: {{producResult.limit}}</span><br>
+         <span>Total de productos: {{producResult.total}}</span><br>
+         <span>Paginas: {{producResult.totalPages}}</span><br>
+         <span>NumPagAnt: {{producResult.prevPage}}</span><br>
+         <span>NumPagSig: {{producResult.nextPage}}</span><br>
+         <span>Pagina actual: {{producResult.page}}</span><br>
+         <span>hasPrevPage: {{producResult.hasPrevPage}}</span><br>
+         <span>hasNextPage: {{producResult.hasNextPage}}</span><br>
+         <span>prevLink: {{producResult.prevLink}}</span><br>
+         <span>nextLink: {{producResult.nextLink}}</span><br>
+         <span>query: {{ producResult.query}}</span><br>
+         
+    </table>
+    <div class="Pagination">
+        {{#if producResult.query}}
+        <span>Query: {{producResult.query}}</span>
+        {{/if}}
+
+        <span>Limit: {{producResult.limit}}</span>
+        
+        {{#if producResult.hasPrevPage}}
+            <a href="?page={{producResult.prevPage}}&limit={{producResult.limit}}{{#if producResult.query}}&query={{producResult.query}}{{/if}}">Anterior</a>
+        {{/if}}
+        
+        <span>Pag {{producResult.page}} of {{producResult.totalPages}} </span>
+
+        {{#if producResult.hasNextPage}}
+            <a href="?page={{producResult.nextPage}}&limit={{producResult.limit}}{{#if producResult.query}}&query={{producResult.query}}{{/if}}">Siguiente</a>
+        {{/if}}
+        <span></span>
+        <span></span>
+
+    </div>
+    <script>
+        function agregalCarrito(prodId){
+            console.log(prodId)
+            document.write("producto agregado")
+        }
+    </script>
+</div>
