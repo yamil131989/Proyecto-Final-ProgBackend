@@ -1,14 +1,17 @@
 const { request,response } = require('express')
 
 const {productModel} = require('../models/products.model.js')
+const { Query } = require('mongoose')
 
- const getProducts = async (req = request,res=response) =>{
+const getProducts = async (req = request,res=response) =>{
     try {
         let { limit , page = 1, query ,sort} = req.query
         page= page==0 ? 1 :page
         page = Number(page)
 
-        const docs = (page - 1) * Number(limit)
+        limit = Number(limit)
+       
+        const Tdocs = (page - 1) * Number(limit)
 
         const OrdenSort = {'asc':-1,'desc':1}
         sort = OrdenSort[sort] || null
@@ -21,11 +24,11 @@ const {productModel} = require('../models/products.model.js')
         
 
         const total = await productModel.countDocuments()
-        let products = await productModel.find(query).limit(Number(limit)).skip(docs)            
+        let products = await productModel.find(query).limit(Number(limit)).skip(Tdocs)            
         
 
         if(sort !== null){
-           products = await productModel.find(query).limit(Number(limit)).skip(docs).sort({price:sort})
+           products = await productModel.find(query).limit(Number(limit)).skip(Tdocs).sort({price:sort})
         } 
         
         
@@ -55,10 +58,21 @@ const {productModel} = require('../models/products.model.js')
             prevLink,
             nextLink
         }
+        const result = {
+            Tdocs,
+            total,
+            totalPages,
+            prevPage,
+            nextPage,
+            page,
+            hasPrevPage,
+            hasNextPage,
+            prevLink,
+            nextLink,
+            payload: products
+        }
 
-
-        //return res.json({products,objeto})
-        return res.json({products,objeto})
+        return res.json({result})
 
 
 
@@ -126,5 +140,78 @@ const updateProduct = async (req = request,res=response) =>{
         
 }
 
+const getProductsHandle = async ({limit=10,page,sort,query}) =>{
+    try {        
+        
+        if(!page)
+            page = 0
+        page = page == 0 ? 1 : page
+        page = Number(page)
 
-module.exports = {updateProduct,deleteProduct,addProduct,getProduct,getProducts}
+        limit = Number(limit)        
+        const Tdocs = (page - 1) * Number(limit)
+
+        const OrdenSort = { 'asc': -1, 'desc': 1}
+        sort = OrdenSort[sort] || null       
+    
+        try {
+            if(query)
+                query = JSON.parse(decodeURIComponent(query))
+        } catch (error) {
+            console.log(error)
+            query = {}
+        }              
+        
+
+        const total = await productModel.countDocuments()
+        
+        const queryProducts = await productModel.find(query).limit(limit).skip(Tdocs).lean()            
+        
+        
+
+        if (sort !== null)
+            queryProducts.sort({ price : sort })  
+    
+        const queryProductsUpd = queryProducts
+
+        //paginado
+        const totalPages = Math.ceil(total/limit)        
+        
+        const hasPrevPage = page > 1
+        const hasNextPage = page < totalPages
+        const prevPage = hasPrevPage ? page -1 : null
+        const nextPage = hasNextPage ? page +1 :null
+
+        //const prevLink = hasPrevPage ? `/products?limit=${Number(limit)}&page=${prevPage}&query=${query}&sort=${sort}` : null
+        const prevLink = hasPrevPage ? `/products?limit=${Number(limit)}&page=${prevPage}` : null
+//        const nextLink = hasNextPage ? `/products?limit=${Number(limit)}&page=${nextPage}&query=${query}&sort=${sort}` : null;
+        const nextLink = hasNextPage ? `/products?limit=${Number(limit)}&page=${nextPage}` : null;
+
+
+        
+    return result = {
+        Tdocs,
+        limit,
+        total,
+        totalPages,
+        prevPage,
+        nextPage,
+        page,
+        hasPrevPage,
+        hasNextPage,
+        prevLink,
+        nextLink,
+        query:JSON.stringify(query),
+        payload: queryProductsUpd
+    }
+
+        //return res.json({result})
+
+
+
+    } catch (error) {    
+        console.log(error)       
+    }
+        
+}
+module.exports = {updateProduct,deleteProduct,addProduct,getProduct,getProducts,getProductsHandle}
