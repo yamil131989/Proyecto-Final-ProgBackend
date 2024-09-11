@@ -1,0 +1,46 @@
+<header>
+    {{!-- <link rel="stylesheet" href="/styles.css"> --}}
+    {{!-- <style> 
+        div {
+            max-width: 800px;
+            margin:20px auto;
+            background-color: rgb(151, 197, 197);
+            padding: 20px;
+            border-radius: 8 px;
+            box-shadow: 0 0 15px rgba(rgb(255, 0, 0), green, blue, alpha);
+
+        }
+        h1{
+            color: rgb(76, 142, 228);
+
+        }
+        h4{
+           color: rgb(16, 21, 27); 
+        }
+        div{
+            border-bottom: 5px solid #44759c;
+            border-top: 5px solid #44759c;
+
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+        p {
+            margin 10 ;
+            color: rgb(130, 196, 55);
+        }
+    </style> --}}
+</header>
+
+<div>
+    <h1>Carrito </h3>
+    {{#each cartResult.Cart}}
+    <div>
+        <h4>Producto: {{this.id.title}}</h4>
+        <p>Descripcion: {{this.id.description}}</p>
+        <p>Precio: {{this.id.price}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
+
+    </div>
+    {{/each}}
+
+</div>
