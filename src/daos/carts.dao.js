@@ -109,7 +109,9 @@ const updateproductinCart  = async(req= request,res= response)=>{
  }
  const getCartsbyIdHandle  = async(cid)=>{
     try {
-        return await cartModel.findById(cid).populate('products.id')
+       const result = await cartModel.findById(cid).populate('products.id').lean()
+       console.log(result)
+       return result
                              
      } catch (error) {    
         console.log(error)
