@@ -32,6 +32,15 @@ router.get('/products', async(req,res)=>{
    return res.render('products',{title:'Productos',producResult})
 })
 
+router.get('/products/:pid', async(req,res)=>{
+   
+   const {pid} =req.params
+   const producInfo = await getProducthandler(pid)
+
+
+   return res.render('producto',{title:'Producto',producInfo})
+})
+
 router.get('/carts/:cid', async (req, res)=>{
    const {cid} = req.params
    console.log(cid)
