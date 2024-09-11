@@ -225,4 +225,4 @@ const getProducthandler = async (pid) =>{
     }
         
 }
-module.exports = {updateProduct,deleteProduct,addProduct,getProduct,getProducts,getProductsHandle}
+module.exports = {updateProduct,deleteProduct,addProduct,getProduct,getProducts,getProductsHandle,getProducthandler }
