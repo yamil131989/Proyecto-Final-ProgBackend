@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { productModel } = require('../models/products.model.js')
-const {getProductsHandle} = require('../daos/products.dao.js')
+const {getProductsHandle,getProducthandler} = require('../daos/products.dao.js')
 const {getCartsbyIdHandle} = require('../daos/carts.dao.js')
 
 
