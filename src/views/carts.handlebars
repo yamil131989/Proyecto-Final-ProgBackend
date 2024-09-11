@@ -1,20 +1,11 @@
 <header>
-    {{!-- <link rel="stylesheet" href="/styles.css"> --}}
-    {{!-- <style> 
-        div {
-            max-width: 800px;
-            margin:20px auto;
-            background-color: rgb(151, 197, 197);
-            padding: 20px;
-            border-radius: 8 px;
-            box-shadow: 0 0 15px rgba(rgb(255, 0, 0), green, blue, alpha);
-
-        }
+     <style> 
+    
         h1{
             color: rgb(76, 142, 228);
 
         }
-        h4{
+        h3{
            color: rgb(16, 21, 27); 
         }
         div{
@@ -28,19 +19,25 @@
             margin 10 ;
             color: rgb(130, 196, 55);
         }
-    </style> --}}
+    </style> 
 </header>
 
 <div>
-    <h1>Carrito </h3>
-    {{#each cartResult.Cart}}
-    <div>
-        <h4>Producto: {{this.id.title}}</h4>
-        <p>Descripcion: {{this.id.description}}</p>
-        <p>Precio: {{this.id.price}}</p>
-        <p>Cantidad: {{this.quantity}}</p>
-
+    <h2>Carrito </h2>
+    <body>
+       {{#each cartResult.products }}
+        <div>
+        
+        <p>Productos: {{this.id.title}}</p>
+        <p>Productos: {{this.id.description}}</p>
+        <p>Productos: {{this.id.price}}</p>
+        <p>Productos: {{this.quantity}}</p>
+   
     </div>
-    {{/each}}
+        {{/each}}
+    </body>
+    
+
+
 
 </div>
