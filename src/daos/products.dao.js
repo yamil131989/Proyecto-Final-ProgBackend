@@ -214,4 +214,15 @@ const getProductsHandle = async ({limit=10,page,sort,query}) =>{
     }
         
 }
+
+const getProducthandler = async (pid) =>{
+    try {
+        const product = await productModel.findById(pid).lean()
+        
+        return product
+        } catch (error) {    
+        console.log(error)        
+    }
+        
+}
 module.exports = {updateProduct,deleteProduct,addProduct,getProduct,getProducts,getProductsHandle}
