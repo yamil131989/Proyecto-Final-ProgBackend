@@ -33,6 +33,9 @@ app.use('/api/products', productRouter)
 app.use('/api/carts',cartRouter)
 app.use('/', views)
 
+//test
+app.use('/products',views)
+
 
 
 
