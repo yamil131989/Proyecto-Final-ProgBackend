@@ -1,4 +1,14 @@
 <header>
+    {{!-- <link rel="stylesheet" href="/styles.css"> 
+        div {
+            max-width: 800px;
+            margin:20px auto;
+            background-color: rgb(151, 197, 197);
+            padding: 20px;
+            border-radius: 8 px;
+            box-shadow: 0 0 15px rgba(rgb(255, 0, 0), green, blue, alpha);
+
+        }--}}
      <style> 
     
         h1{
@@ -28,12 +38,12 @@
        {{#each cartResult.products }}
         <div>
         
-        <p>Productos: {{this.id.title}}</p>
-        <p>Productos: {{this.id.description}}</p>
-        <p>Productos: {{this.id.price}}</p>
-        <p>Productos: {{this.quantity}}</p>
+        <p>Titulo: {{this.id.title}}</p>
+        <p>Descripcion: {{this.id.description}}</p>
+        <p>Precio: {{this.id.price}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
    
-    </div>
+        </div>
         {{/each}}
     </body>
     
