@@ -9,9 +9,11 @@ const router = Router()
 
 router.get('/',async (req,res)=>{
  //    const productos = await prodManagerFS.getProducts()  
-    const productos = await productModel.find().lean()
-    //
-    return res.render('home',{productos,styles:"styles.css"})
+    //const productos = await productModel.find().lean()
+ 
+    //return res.render('home',{productos,styles:"styles.css"})
+   const producResult = await getProductsHandle({...req.query})
+   return res.render('products',{title:'Productos',producResult})
 })
  
 router.get('/realtimeproducts',async (req,res)=>{
